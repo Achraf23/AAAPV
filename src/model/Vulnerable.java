@@ -1,4 +1,3 @@
-package model;
 
 public class Vulnerable extends User{
     public Vulnerable(String name, String firstname, String mail, String password) {
