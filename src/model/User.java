@@ -1,3 +1,5 @@
+package model;
+
 import java.sql.SQLException;
 
 public abstract class User {

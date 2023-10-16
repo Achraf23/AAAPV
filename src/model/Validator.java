@@ -1,3 +1,5 @@
+package model;
+
 public class Validator extends User{
 
     public Validator(String name, String firstname, String mail, String password) {

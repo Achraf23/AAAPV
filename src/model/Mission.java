@@ -1,3 +1,5 @@
+package model;
+
 public class Mission {
     private Vulnerable vulnerable;
     private static int nbrTotalMission;
