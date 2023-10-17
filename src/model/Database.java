@@ -5,30 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 public class Database {
-    final String user = "projet_gei_004";
-    final String url = "jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/"+user;
+    static final String user = "projet_gei_004";
+    static final String url = "jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/"+user;
 
-    final String pass = "am3xiReZ";
+    static final String pass = "am3xiReZ";
 
-    Connection con = null;
+    static  Database db;
 
-    //Testing Insert Line Table ==> Will change later
-    void insertLineIntoUser(User u) throws SQLException{
-        Statement statement=null;
-        try {
-            statement = con.createStatement();
-
-        }catch(SQLException s){
-            System.out.println("Error add line Table");
-            throw  new SQLException();
-        }
-        // insert the data
-        statement.executeUpdate("INSERT INTO User " + "VALUES (1, 'Simpson', 'Mr.', 'Springfield', 'root')");
-    }
+    private  static Connection con = null;
 
 
-
-    public void connectToDatabase(){
+    public static void connectToDatabase(){
         try {
             con = DriverManager.getConnection(url, user,
                     pass);
@@ -44,6 +31,34 @@ public class Database {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
+
+
+    //Testing Insert Line Table ==> Will change later
+    public static void insertLineIntoUser(int id,String name, String firstname, String mail, String password) {
+        Statement statement=null;
+        try {
+            statement = con.createStatement();
+
+        }catch(SQLException s){
+            System.out.println("Error add line Table");
+            //throw  new SQLException();
+        }
+        // insert the data
+        //statement.executeUpdate("INSERT INTO User " + "VALUES (1, 'Simpson', 'Mr.', 'Springfield', 'root')");
+
+        try {
+            statement.executeUpdate("INSERT INTO User " + "VALUES ("+id+", '"+name+"', '"+firstname+"', '"+mail+"', '"+password+"')");
+        }catch (SQLException s){
+            System.out.println("Insert User Line error");
+            s.getErrorCode();
+            s.getMessage();
+        }
+
+    }
+
+
+
+
 
 
 }

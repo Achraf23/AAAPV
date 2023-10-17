@@ -26,8 +26,6 @@ public abstract class User {
     }
 
     void register(User u) throws SQLException {
-        Database d= new Database();
-        d.insertLineIntoUser(u);
 
 
     }
