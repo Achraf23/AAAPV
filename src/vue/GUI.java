@@ -1,6 +1,7 @@
 package vue;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,35 +10,57 @@ public class GUI {
         try {UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) { e.printStackTrace(); }
 
+        //Set up window
         JFrame f = new JFrame("AAAPV");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setPreferredSize(new Dimension(600,400));
 
-        final JTextArea textArea = new JTextArea("Quel type d'utilisateur.trice êtes-vous ?");
+        Container pane = f.getContentPane();
 
-        textArea.setBounds(50,50, 300,50);
-        //textArea.setFont(new Font("Serif", Font.ITALIC, 16));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
+        //label with text area
+        final JLabel text = new JLabel("Quel type d'utilisateur.trice êtes-vous ?");
+        text.setHorizontalAlignment(SwingConstants.CENTER);
+        pane.add(text, BorderLayout.CENTER);
 
-        //mayve frame sur mode vulerable par defaut et opt benev ou valideur en bas (??)
-        JButton b1 = new JButton("Demandeur d'aide");
-        b1.setBounds(100, 100, 150, 50);
-        f.add(b1);
-        JButton b2 = new JButton("Bénévole");
-        b2.setBounds(100, 150, 100, 50);
-        f.add(b2);
-        JButton b3 = new JButton("Valideur");
-        b3.setBounds(100, 200, 100, 50);
-        f.add(b3);
-        b1.addActionListener(new ActionListener() {
+        //Create the panel and the 3 buttons inside
+        JPanel p = new JPanel(new BorderLayout());
+        p.setLayout(new FlowLayout());
+
+        //maybe frame sur mode vulerable par defaut et opt benev ou valideur en bas (??)
+        JButton vuln = new JButton("Demandeur d'aide");
+        //vuln.setBounds(100, 100, 150, 50);
+        p.add(vuln);
+
+        JButton benev = new JButton("Bénévole");
+        //benev.setBounds(100, 150, 100, 50);
+        p.add(benev);
+
+        JButton valid = new JButton("Valideur");
+        //valid.setBounds(100, 200, 100, 50);
+        p.add(valid);
+
+        pane.add(p, BorderLayout.PAGE_END);
+
+        vuln.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent e) {
                 //this.moveFrame();
              }
         });
-        f.setSize(500, 500);
-        f.add(textArea);
-        f.setLayout(null);
+
+        // make window's dimension fit its content
+        f.pack();
         f.setVisible(true);
-        textArea.setVisible(true);
+        text.setVisible(true);
+        //Display the panel
+        p.setVisible(true);
+        //Display the buttons
+        vuln.setVisible(true);
+        benev.setVisible(true);
+        valid.setVisible(true);
+    }
+
+    public static class Registration{
+
     }
 }
 
