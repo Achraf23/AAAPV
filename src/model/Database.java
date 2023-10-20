@@ -1,18 +1,22 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import vue.GUI;
+
+import java.sql.*;
+
 public class Database {
     static final String user = "projet_gei_004";
     static final String url = "jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/"+user;
 
     static final String pass = "am3xiReZ";
 
-    static  Database db;
-
     private  static Connection con = null;
+
+    public static void main(String[] args){
+        connectToDatabase();
+        getUser("23@gma","root");
+
+    }
 
 
     public static void connectToDatabase(){
@@ -54,6 +58,35 @@ public class Database {
             s.getMessage();
         }
 
+    }
+
+    public static boolean getUser(String mail,String password){
+        Statement statement=null;
+        try {
+            statement = con.createStatement();
+
+        }catch(SQLException s){
+            System.out.println("Error add line Table");
+            //throw  new SQLException();
+        }
+
+        try{
+            String query = String.format("SELECT * FROM User WHERE email='%s' and keyword='%s'",mail,password);
+            //String query = "SELECT id FROM User;";
+            System.out.println(query);
+            ResultSet rs=statement.executeQuery(query);
+
+            if (rs.next()) {
+                String x = rs.getString("email");
+                System.out.println(x);
+                return  true;            }
+        }catch (SQLException s){
+            System.out.println("getUser Error");
+            s.getErrorCode();
+            s.getMessage();
+
+        }
+        return false;
     }
 
 
