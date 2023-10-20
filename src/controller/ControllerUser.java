@@ -10,5 +10,9 @@ public abstract class ControllerUser {
     }
 
     public abstract void addUser(String name, String firstname, String mail, String password);
+
+    //Should use static method getUser that returns true if User present
     public abstract void connectUser(String mail, String password);
+
+
 }
