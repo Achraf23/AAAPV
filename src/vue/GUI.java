@@ -1,5 +1,10 @@
 package vue;
 
+import controller.ControllerUser;
+import controller.ControllerValidator;
+import controller.ControllerVolunteer;
+import controller.ControllerVulnerable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,14 +39,20 @@ public class GUI {
         JButton vuln = new JButton("Demandeur d'aide");
         //vuln.setBounds(100, 100, 150, 50);
         p.add(vuln);
+        ControllerVulnerable controllerVulnerable = new ControllerVulnerable();
+        controllerVulnerable.addListener(vuln);
 
         JButton benev = new JButton("Bénévole");
         //benev.setBounds(100, 150, 100, 50);
         p.add(benev);
+        ControllerVolunteer controllerVolunteer = new ControllerVolunteer();
+        controllerVulnerable.addListener(benev);
 
         JButton valid = new JButton("Valideur");
         //valid.setBounds(100, 200, 100, 50);
         p.add(valid);
+        ControllerValidator controllerValidator = new ControllerValidator();
+        controllerVulnerable.addListener(valid);
 
         pane.add(p, BorderLayout.PAGE_END);
 
