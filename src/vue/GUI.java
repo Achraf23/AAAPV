@@ -46,13 +46,13 @@ public class GUI {
         //benev.setBounds(100, 150, 100, 50);
         p.add(benev);
         ControllerVolunteer controllerVolunteer = new ControllerVolunteer();
-        controllerVulnerable.addListener(benev);
+        controllerVolunteer.addListener(benev);
 
         JButton valid = new JButton("Valideur");
         //valid.setBounds(100, 200, 100, 50);
         p.add(valid);
         ControllerValidator controllerValidator = new ControllerValidator();
-        controllerVulnerable.addListener(valid);
+        controllerValidator.addListener(valid);
 
         pane.add(p, BorderLayout.PAGE_END);
 
