@@ -32,12 +32,14 @@ public class ControllerValidator extends ControllerUser{
 
     }
 
-    @Override
-    public void connectUser(String mail, String password) {
 
-    }
-
-    public void test(){
-        System.out.println("connect validator");
+    public void test(JButton b){
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("connect validator");
+            }
+        };
+        b.addActionListener(listener);
     }
 }
