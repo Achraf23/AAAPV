@@ -4,6 +4,7 @@ package model;
 public class Vulnerable extends User{
     public Vulnerable(String name, String firstname, String mail, String password) {
         super(name, firstname, mail, password);
+        this.type=EnumUser.Vulnerable;
     }
 
     public void addMission(String location, String date, String description){

@@ -3,6 +3,7 @@ package controller;
 import model.Database;
 import model.Vulnerable;
 import vue.GUI;
+import model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,15 +26,6 @@ public class ControllerVulnerable extends ControllerUser{
         button.addActionListener(listener);
     }
 
-    @Override
-    public void addUser(String name, String firstname, String mail, String password) {
-        Vulnerable v = new Vulnerable(name, firstname, mail, password);
-        Database.insertLineIntoUser(v.getId(),name,firstname,mail,password);
-
-
-        //ajouter à la table
-
-    }
 
 
 }

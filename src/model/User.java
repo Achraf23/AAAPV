@@ -2,12 +2,13 @@ package model;
 
 import java.sql.SQLException;
 
-public abstract class User {
-    private String name;
-    private String firstname;
+public class User {
+    public String name;
+    public String firstname;
     private static int nbrTotalUser = 0;
     private int id;;
-    private String mail;
+    public EnumUser type;
+    public String mail;
     private String password;
 
     public User(String name, String firstname, String mail, String password) {
@@ -17,6 +18,7 @@ public abstract class User {
         this.mail = mail;
         this.password = password;
     }
+
 
     public int getId() {
         return id;
@@ -37,5 +39,7 @@ public abstract class User {
     /*public abstract void printLaunchScreen();
     pour vulnerable -> add mission / pour volunteer -> toutes les missions / pour validateur -> toutes les missionSelected
     */
+
+    public String getPassword(){return password;}
 
 }

@@ -4,6 +4,7 @@ public class Validator extends User{
 
     public Validator(String name, String firstname, String mail, String password) {
         super(name, firstname, mail, password);
+        this.type=EnumUser.Validator;
     }
 
     public void validate(Mission m, Volunteer v) {

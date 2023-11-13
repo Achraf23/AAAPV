@@ -25,10 +25,6 @@ public class ControllerVolunteer extends ControllerUser{
         };
         button.addActionListener(listener);
     }
-    @Override
-    public void addUser(String name, String firstname, String mail, String password) {
-        Volunteer v=new Volunteer(name,firstname,mail,password);
-        Database.insertLineIntoUser(v.getId(),name,firstname,mail,password);
-    }
+
 
 }

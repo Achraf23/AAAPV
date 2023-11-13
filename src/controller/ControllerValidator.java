@@ -1,6 +1,7 @@
 package controller;
 
 import model.Database;
+import model.User;
 import model.Validator;
 import model.Volunteer;
 import vue.GUI;
@@ -25,11 +26,6 @@ public class ControllerValidator extends ControllerUser{
         };
         button.addActionListener(listener);
     }
-    @Override
-    public void addUser(String name, String firstname, String mail, String password) {
-        Validator v=new Validator(name,firstname,mail,password);
-        Database.insertLineIntoUser(v.getId(),name,firstname,mail,password);
 
-    }
 
 }
