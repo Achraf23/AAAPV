@@ -1,21 +1,22 @@
 package controller;
-
-import model.*;
-import vue.GUI;
-
-import javax.lang.model.type.UnknownTypeException;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
+import vue.GUI;
+import model.*;
+import javax.swing.*;
 
 public abstract class ControllerUser {
     Database db;
     GUI vue;
-    ControllerUser(){
+    ControllerUser(GUI vue){
+        this.vue = vue;
         Database.connectToDatabase();
     }
 
+    public GUI getVue(){
+        return this.vue;
+    }
+
+    public abstract void addListener(JButton button);
 
     public void createUser(User u) throws IOException {
         switch (u.type){
@@ -43,4 +44,5 @@ public abstract class ControllerUser {
     }
 
 
+    public abstract void test(JButton button);
 }
