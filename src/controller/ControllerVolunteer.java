@@ -31,8 +31,4 @@ public class ControllerVolunteer extends ControllerUser{
         Database.insertLineIntoUser(v.getId(),name,firstname,mail,password);
     }
 
-    @Override
-    public void connectUser(String mail, String password) {
-
-    }
 }

@@ -35,9 +35,5 @@ public class ControllerVulnerable extends ControllerUser{
 
     }
 
-    @Override
-    public void connectUser(String mail, String password) {
-
-    }
 
 }
