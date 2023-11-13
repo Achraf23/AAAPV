@@ -20,7 +20,7 @@ public class ControllerVolunteer extends ControllerUser{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acceuil bénévole");
                 //lance la page accueil des volunteer
-                ControllerVolunteer.super.getVue().signup();
+                ControllerVolunteer.super.getVue().signup(ControllerVolunteer.this);
             }
         };
         button.addActionListener(listener);
