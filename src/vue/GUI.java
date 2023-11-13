@@ -142,11 +142,16 @@ public class GUI {
 
         //Bouton connexion
         JButton button = new JButton("Connexion"); //set label to button
+        button.setFont(new Font("Arial", Font.PLAIN, 15));
+        button.setSize(200, 40);
+        button.setLocation(200, 325);
         c.add(button);
         controllerUser.test(button);
 
         //Frame config
         f.setVisible(true);
+        c.setVisible(true);
+        button.setVisible(true);
     }
 
 }
