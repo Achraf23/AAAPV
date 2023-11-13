@@ -143,7 +143,7 @@ public class GUI {
         //Bouton connexion
         JButton button = new JButton("Connexion"); //set label to button
         c.add(button);
-        controllerUser.test();
+        controllerUser.test(button);
 
         //Frame config
         f.setVisible(true);
