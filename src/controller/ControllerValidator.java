@@ -2,7 +2,6 @@ package controller;
 
 import model.Database;
 import model.Validator;
-import model.Volunteer;
 import vue.GUI;
 
 import javax.swing.*;
@@ -10,17 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControllerValidator extends ControllerUser{
-    public ControllerValidator() {
-        super();
+    public ControllerValidator(GUI vue) {
+        super(vue);
     }
 
-    public void addListener(JButton button){
+    @Override
+    public void addListener(final JButton button){
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acceuil validateur");
                 //lance la page accueil des validator
-                GUI.Registration page2 = new GUI.Registration();
+                ControllerValidator.super.getVue().signup();
             }
         };
         button.addActionListener(listener);
@@ -35,5 +35,9 @@ public class ControllerValidator extends ControllerUser{
     @Override
     public void connectUser(String mail, String password) {
 
+    }
+
+    public void test(){
+        System.out.println("connect validator");
     }
 }

@@ -9,18 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControllerVolunteer extends ControllerUser{
-    public ControllerVolunteer() {
-        super();
+    public ControllerVolunteer(GUI vue) {
+        super(vue);
     }
 
-
+    @Override
     public void addListener(JButton button){
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acceuil bénévole");
                 //lance la page accueil des volunteer
-                GUI.Registration page2 = new GUI.Registration();
+                ControllerVolunteer.super.getVue().signup();
             }
         };
         button.addActionListener(listener);
@@ -34,5 +34,8 @@ public class ControllerVolunteer extends ControllerUser{
     @Override
     public void connectUser(String mail, String password) {
 
+    }
+    public void test(){
+        System.out.println("connect volunteer");
     }
 }

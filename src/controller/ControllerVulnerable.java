@@ -10,16 +10,17 @@ import java.awt.event.ActionListener;
 
 public class ControllerVulnerable extends ControllerUser{
 
-    public ControllerVulnerable() {
-        super();}
+    public ControllerVulnerable(GUI vue) {
+        super(vue);}
 
+    @Override
     public void addListener(JButton button){
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acceuil vulnérable");
                 //lance la page accueil des vulnérables
-                GUI.Registration page2 = new GUI.Registration();
+                ControllerVulnerable.super.getVue().signup();
             }
         };
         button.addActionListener(listener);
@@ -38,6 +39,9 @@ public class ControllerVulnerable extends ControllerUser{
     @Override
     public void connectUser(String mail, String password) {
 
+    }
+    public void test(){
+        System.out.println("connect vuln");
     }
 
 }
