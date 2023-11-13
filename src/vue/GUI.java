@@ -145,7 +145,7 @@ public class GUI {
 
         //Bouton connexion
         JButton button = new JButton("Connexion"); //set label to button
-        controllerUser.test();
+        controllerUser.test(button);
 
     /*
         //create panel to put form elements

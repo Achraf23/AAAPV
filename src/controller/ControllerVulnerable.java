@@ -35,13 +35,14 @@ public class ControllerVulnerable extends ControllerUser{
         //ajouter à la table
 
     }
-
-    @Override
-    public void connectUser(String mail, String password) {
-
-    }
-    public void test(){
-        System.out.println("connect vuln");
+    public void test(JButton b){
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("connect vulnerable");
+            }
+        };
+        b.addActionListener(listener);
     }
 
 }

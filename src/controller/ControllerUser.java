@@ -27,5 +27,5 @@ public abstract class ControllerUser {
     }
 
 
-    public abstract void test();
+    public abstract void test(JButton button);
 }

@@ -31,11 +31,13 @@ public class ControllerVolunteer extends ControllerUser{
         Database.insertLineIntoUser(v.getId(),name,firstname,mail,password);
     }
 
-    @Override
-    public void connectUser(String mail, String password) {
-
-    }
-    public void test(){
-        System.out.println("connect volunteer");
+    public void test(JButton b){
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("connect volunteer");
+            }
+        };
+        b.addActionListener(listener);
     }
 }
