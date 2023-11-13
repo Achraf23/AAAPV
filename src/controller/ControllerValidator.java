@@ -20,7 +20,7 @@ public class ControllerValidator extends ControllerUser{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acceuil validateur");
                 //lance la page accueil des validator
-                ControllerValidator.super.getVue().signup();
+                ControllerValidator.super.getVue().signup(ControllerValidator.this);
             }
         };
         button.addActionListener(listener);

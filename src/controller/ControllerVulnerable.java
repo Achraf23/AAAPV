@@ -20,7 +20,7 @@ public class ControllerVulnerable extends ControllerUser{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acceuil vulnérable");
                 //lance la page accueil des vulnérables
-                ControllerVulnerable.super.getVue().signup();
+                ControllerVulnerable.super.getVue().signup(ControllerVulnerable.this);
             }
         };
         button.addActionListener(listener);

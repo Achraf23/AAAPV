@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUI {
-    ControllerUser controllerUser;
-
     public GUI(){
         homeScreen();
     }
@@ -41,18 +39,18 @@ public class GUI {
 
         JButton vuln = new JButton("Demandeur d'aide");
         p.add(vuln);
-        this.controllerUser = new ControllerVulnerable(this);
-        controllerUser.addListener(vuln);
+        ControllerUser controllerVulnerable = new ControllerVulnerable(this);
+        controllerVulnerable.addListener(vuln);
 
         JButton benev = new JButton("Bénévole");
         p.add(benev);
-        this.controllerUser = new ControllerVolunteer(this);
-        controllerUser.addListener(benev);
+        ControllerUser controllerVolunteer = new ControllerVolunteer(this);
+        controllerVolunteer.addListener(benev);
 
         JButton valid = new JButton("Valideur.euse");
         p.add(valid);
-        this.controllerUser = new ControllerValidator(this);
-        controllerUser.addListener(valid);
+        ControllerUser controllerValidator = new ControllerValidator(this);
+        controllerValidator.addListener(valid);
 
         pane.add(p, BorderLayout.PAGE_END);
 
@@ -70,7 +68,7 @@ public class GUI {
         valid.setVisible(true);
     }
 
-    public void signup(){
+    public void signup(ControllerUser controllerUser){
 
             //Set up window
             JFrame f = new JFrame("Connexion");
@@ -146,7 +144,7 @@ public class GUI {
         button.setSize(200, 40);
         button.setLocation(200, 325);
         c.add(button);
-        controllerUser.test(button);
+        controllerUser.test(button); //TODO regler pb du polymorphisme
 
         //Frame config
         f.setVisible(true);
