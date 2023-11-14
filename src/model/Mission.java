@@ -6,6 +6,23 @@ public class Mission {
     private String location;
     private String date;
     private String description;
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     private int id;
     private Volunteer volunteer;
 
