@@ -11,6 +11,7 @@ import java.awt.*;
 public class GUI {
     public GUI(){
         homeScreen();
+        homepage_vulnerable("prout");
     }
     private void homeScreen() {
         try {
@@ -22,12 +23,13 @@ public class GUI {
         //Set up window
         JFrame f = new JFrame("AAAPV");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setPreferredSize(new Dimension(600, 400));
+        f.setPreferredSize(new Dimension(800, 400));
 
         Container pane = f.getContentPane();
 
         //Label with text area
         final JLabel text = new JLabel("Quel type d'utilisateur.trice êtes-vous ?");
+        text.setFont(new Font("Arial", Font.PLAIN, 30));
         text.setHorizontalAlignment(SwingConstants.CENTER);
         pane.add(text, BorderLayout.CENTER);
 
@@ -36,16 +38,19 @@ public class GUI {
         p.setLayout(new FlowLayout());
 
         JButton vuln = new JButton("Demandeur d'aide");
+        vuln.setFont(new Font("Arial", Font.PLAIN, 20));
         p.add(vuln);
         ControllerUser controllerVulnerable = new ControllerVulnerable(this);
         controllerVulnerable.addListener(vuln);
 
         JButton benev = new JButton("Bénévole");
+        benev.setFont(new Font("Arial", Font.PLAIN, 20));
         p.add(benev);
         ControllerUser controllerVolunteer = new ControllerVolunteer(this);
         controllerVolunteer.addListener(benev);
 
         JButton valid = new JButton("Valideur.euse");
+        valid.setFont(new Font("Arial", Font.PLAIN, 20));
         p.add(valid);
         ControllerUser controllerValidator = new ControllerValidator(this);
         controllerValidator.addListener(valid);
@@ -67,6 +72,12 @@ public class GUI {
     }
 
     public void signup(ControllerUser controllerUser){
+
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //Set up window
         JFrame f = new JFrame("Connexion");
@@ -148,6 +159,56 @@ public class GUI {
         f.setVisible(true);
         c.setVisible(true);
         button.setVisible(true);
+    }
+
+    public void homepage_vulnerable(String first_name){
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up window
+        JFrame f = new JFrame("Page d'accueil");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setPreferredSize(new Dimension(600, 400));
+
+        Container c = f.getContentPane();
+        c.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Bonjour "+ first_name+" !");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        c.add(title, BorderLayout.CENTER);
+
+        //Create the panel and the buttons inside
+        JPanel p1 = new JPanel();
+        p1.setLayout(new FlowLayout());
+
+        JButton demande = new JButton("Demander de l'aide"); //set label to button
+        demande.setFont(new Font("Arial", Font.PLAIN, 20));
+        p1.add(demande);
+
+        JButton historique = new JButton("Gérer vos demandes en cours"); //set label to button
+        historique.setFont(new Font("Arial", Font.PLAIN, 20));
+        p1.add(historique);
+
+        //Make window's dimension fit its content
+        f.pack();
+
+        //Set frame and pane to visible
+        f.setVisible(true);
+        c.setVisible(true);
+
+        //Display the panel
+        c.add(p1, BorderLayout.PAGE_END);
+        p1.setVisible(true);
+
+        //Display the buttons
+        demande.setVisible(true);
+        historique.setVisible(true);
+
+
     }
 
 }
