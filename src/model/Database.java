@@ -64,6 +64,26 @@ public class Database {
 
     }
 
+    public static void insertLineIntoMission(int idVuln,String location, String date, String description) {
+        Statement statement=null;
+        try {
+            statement = con.createStatement();
+
+        }catch(SQLException s){
+            System.out.println("Error add line Table");
+            //throw  new SQLException();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Mission " + "VALUES ("+idVuln+", '"+location+"', '"+date+"', '"+description+"')");
+        }catch (SQLException s){
+            System.out.println("Insert User Line error");
+            s.getErrorCode();
+            s.getMessage();
+        }
+
+    }
+
     public static boolean getUser(String mail,String password){
         Statement statement=null;
         try {
