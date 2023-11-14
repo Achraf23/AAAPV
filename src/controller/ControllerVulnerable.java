@@ -7,6 +7,7 @@ import vue.GUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ControllerVulnerable extends ControllerUser{
 
@@ -32,7 +33,12 @@ public class ControllerVulnerable extends ControllerUser{
 
                 System.out.println("connect vulnerable");
                 Vulnerable user = new Vulnerable(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
-                //TODO appel methode achraf + creation nouvelle page
+                try {
+                    ControllerVulnerable.super.insertUserIntoDatabase(user);
+                    ControllerVulnerable.super.homepage_vulnerable(user.getFirstname());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         };
         b.addActionListener(listener);
