@@ -35,7 +35,7 @@ public class ControllerVulnerable extends ControllerUser{
                 Vulnerable user = new Vulnerable(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
                 try {
                     ControllerVulnerable.super.insertUserIntoDatabase(user);
-                    ControllerVulnerable.super.homepage_vulnerable(user.getFirstname());
+                    ControllerVulnerable.super.getVue().homepage_vulnerable(user.getFirstname());
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
