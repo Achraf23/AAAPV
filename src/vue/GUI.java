@@ -11,7 +11,6 @@ import java.awt.*;
 public class GUI {
     public GUI(){
         homeScreen();
-        homepage_vulnerable("prout");
     }
     private void homeScreen() {
         try {
