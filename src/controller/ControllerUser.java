@@ -18,22 +18,7 @@ public abstract class ControllerUser {
 
     public abstract void addListener(JButton button);
 
-    public void createUser(User u) throws IOException {
-        switch (u.type){
-            case Validator:
-                Validator v=new Validator(u.name,u.firstname,u.mail,u.getPassword());
-                break;
-            case Volunteer:
-                Volunteer userVolunteer=new Volunteer(u.name,u.firstname,u.mail,u.getPassword());
-                break;
-            case Vulnerable:
-                Vulnerable userVulnerable = new Vulnerable(u.name, u.firstname, u.mail, u.getPassword());
-                break;
-            default:
-                throw new IOException("User type not specified");
-
-        }
-
+    public void insertUserIntoDatabase(User u) throws IOException {
         Database.insertLineIntoUser(u.getId(),u.name,u.firstname,u.mail,u.getPassword());
     }
 
@@ -44,5 +29,5 @@ public abstract class ControllerUser {
     }
 
 
-    public abstract void test(JButton button);
+    public abstract void addConnexionListener(JButton button, JTextField tsurname, JTextField tname, JTextField temail, JPasswordField tpassword);
 }

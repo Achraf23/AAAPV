@@ -25,11 +25,14 @@ public class ControllerVulnerable extends ControllerUser{
         };
         button.addActionListener(listener);
     }
-    public void test(JButton b){
+    public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword){
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("connect vulnerable");
+                Vulnerable user = new Vulnerable(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
+                //TODO appel methode achraf + creation nouvelle page
             }
         };
         b.addActionListener(listener);
