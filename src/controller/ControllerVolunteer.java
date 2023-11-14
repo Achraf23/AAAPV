@@ -27,7 +27,7 @@ public class ControllerVolunteer extends ControllerUser{
     }
 
 
-    public void test(JButton b){
+    public void addConnexionListener(JButton b, JTextField tsurname, JTextField tname, JTextField temail, JPasswordField tpassword){
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

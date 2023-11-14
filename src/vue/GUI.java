@@ -7,8 +7,6 @@ import controller.ControllerVulnerable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GUI {
     public GUI(){
@@ -70,19 +68,19 @@ public class GUI {
 
     public void signup(ControllerUser controllerUser){
 
-            //Set up window
-            JFrame f = new JFrame("Connexion");
-            f.setResizable(false);
-            f.setBounds(300, 90, 600, 450);
+        //Set up window
+        JFrame f = new JFrame("Connexion");
+        f.setResizable(false);
+        f.setBounds(300, 90, 600, 450);
 
-            Container c = f.getContentPane();
-            c.setLayout(null);
+        Container c = f.getContentPane();
+        c.setLayout(null);
 
-            JLabel title = new JLabel("Connexion");
-            title.setFont(new Font("Arial", Font.PLAIN, 30));
-            title.setSize(350, 30);
-            title.setLocation(210, 25);
-            c.add(title);
+        JLabel title = new JLabel("Connexion");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setSize(350, 30);
+        title.setLocation(210, 25);
+        c.add(title);
 
         //PARAMETRES DE CONNEXION
 
@@ -93,11 +91,11 @@ public class GUI {
         surname.setLocation(100, 100);
         c.add(surname);
 
-            JTextField tsurname = new JTextField();
-            tsurname.setFont(new Font("Arial", Font.PLAIN, 15));
-            tsurname.setSize(190, 30);
-            tsurname.setLocation(300, 100);
-            c.add(tsurname);
+        JTextField tsurname = new JTextField();
+        tsurname.setFont(new Font("Arial", Font.PLAIN, 15));
+        tsurname.setSize(190, 30);
+        tsurname.setLocation(300, 100);
+        c.add(tsurname);
 
         //Prénom
         JLabel name = new JLabel("Prénom :");
@@ -106,11 +104,11 @@ public class GUI {
         name.setLocation(100, 150);
         c.add(name);
 
-            JTextField tname = new JTextField();
-            tname.setFont(new Font("Arial", Font.PLAIN, 15));
-            tname.setSize(190, 30);
-            tname.setLocation(300, 150);
-            c.add(tname);
+        JTextField tname = new JTextField();
+        tname.setFont(new Font("Arial", Font.PLAIN, 15));
+        tname.setSize(190, 30);
+        tname.setLocation(300, 150);
+        c.add(tname);
 
         //E-mail
         JLabel email = new JLabel("Adresse mail:");
@@ -119,11 +117,11 @@ public class GUI {
         email.setLocation(100,200);
         c.add(email);
 
-            JTextField temail = new JTextField();
-            temail.setFont(new Font("Arial", Font.PLAIN, 15));
-            temail.setSize(190, 30);
-            temail.setLocation(300, 200);
-            c.add(temail);
+        JTextField temail = new JTextField();
+        temail.setFont(new Font("Arial", Font.PLAIN, 15));
+        temail.setSize(190, 30);
+        temail.setLocation(300, 200);
+        c.add(temail);
 
         //Password
         JLabel password = new JLabel("Mot de passe :");
@@ -132,11 +130,11 @@ public class GUI {
         password.setLocation(100, 250);
         c.add(password);
 
-            JPasswordField tpassword = new JPasswordField();
-            tpassword.setFont(new Font("Arial", Font.PLAIN, 15));
-            tpassword.setSize(190, 30);
-            tpassword.setLocation(300, 250);
-            c.add(tpassword);
+        JPasswordField tpassword = new JPasswordField();
+        tpassword.setFont(new Font("Arial", Font.PLAIN, 15));
+        tpassword.setSize(190, 30);
+        tpassword.setLocation(300, 250);
+        c.add(tpassword);
 
         //Bouton connexion
         JButton button = new JButton("Connexion"); //set label to button
@@ -144,7 +142,7 @@ public class GUI {
         button.setSize(200, 40);
         button.setLocation(200, 325);
         c.add(button);
-        controllerUser.test(button); //TODO regler pb du polymorphisme
+        controllerUser.addConnexionListener(button, tsurname, tname, temail, tpassword);
 
         //Frame config
         f.setVisible(true);

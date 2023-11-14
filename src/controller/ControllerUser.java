@@ -44,5 +44,5 @@ public abstract class ControllerUser {
     }
 
 
-    public abstract void test(JButton button);
+    public abstract void addConnexionListener(JButton button, JTextField tsurname, JTextField tname, JTextField temail, JPasswordField tpassword);
 }
