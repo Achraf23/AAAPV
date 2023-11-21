@@ -1,9 +1,6 @@
 package controller;
 
-import model.Database;
-import model.User;
-import model.Validator;
-import model.Vulnerable;
+import model.*;
 import vue.GUI;
 
 import javax.swing.*;
@@ -29,12 +26,15 @@ public class ControllerValidator extends ControllerUser{
         button.addActionListener(listener);
     }
 
-
+    @Override
+    public void insertUserIntoDatabase(User u) throws IOException {
+        Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Validator);
+    }
 
     @Override
     public void homepage(String name) {
         System.out.println("connect validator");
-        ControllerValidator.super.getVue().homepage_vulnerable(name); //TODO homepage vulnerable
+        ControllerValidator.super.getVue().homepage_validator(name);
     }
 }
 

@@ -39,7 +39,7 @@ public class Database {
 
 
     //Testing Insert Line Table ==> Will change later
-    public static void insertLineIntoUser(String name, String firstname, String mail, String password) {
+    public static void insertLineIntoUser(String name, String firstname, String mail, String password, EnumUser type) {
         Statement statement=null;
         try {
             statement = con.createStatement();
@@ -52,7 +52,7 @@ public class Database {
         //statement.executeUpdate("INSERT INTO User " + "VALUES (1, 'Simpson', 'Mr.', 'Springfield', 'root')");
 
         try {
-            statement.executeUpdate("INSERT INTO User " + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"')");
+            statement.executeUpdate("INSERT INTO User " + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"', '"+type+"')");
         }catch (SQLException s){
             System.out.println("User already in");
             s.getErrorCode();

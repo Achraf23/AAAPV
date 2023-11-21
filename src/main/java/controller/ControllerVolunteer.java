@@ -1,8 +1,6 @@
 package controller;
 
-import model.Database;
-import model.Validator;
-import model.Volunteer;
+import model.*;
 import vue.GUI;
 
 import javax.swing.*;
@@ -29,8 +27,13 @@ public class ControllerVolunteer extends ControllerUser{
     }
 
     @Override
+    public void insertUserIntoDatabase(User u) throws IOException {
+        Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Volunteer);
+    }
+
+    @Override
     public void homepage(String name) {
         System.out.println("connect volunteer");
-        ControllerVolunteer.super.getVue().homepage_vulnerable(name);//TODO homepage vulnerable
+        ControllerVolunteer.super.getVue().homepage_volunteer(name);
     }
 }

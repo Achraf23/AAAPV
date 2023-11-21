@@ -1,6 +1,8 @@
 package controller;
 
 import model.Database;
+import model.EnumUser;
+import model.User;
 import model.Vulnerable;
 import vue.GUI;
 
@@ -25,6 +27,11 @@ public class ControllerVulnerable extends ControllerUser{
             }
         };
         button.addActionListener(listener);
+    }
+
+    @Override
+    public void insertUserIntoDatabase(User u) throws IOException {
+        Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Vulnerable);
     }
 
     @Override

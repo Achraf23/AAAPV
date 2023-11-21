@@ -160,6 +160,11 @@ public class GUI {
         button.setVisible(true);
     }
 
+    public void errorPassword(){
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(frame,"Le mot de passe est incorrect !", "Erreur", JOptionPane.ERROR_MESSAGE);
+    }
+
     public void homepage_vulnerable(String first_name){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -206,10 +211,107 @@ public class GUI {
         //Display the buttons
         demande.setVisible(true);
         historique.setVisible(true);
-
-
     }
 
+    public void homepage_volunteer(String first_name){
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up window
+        JFrame f = new JFrame("Page d'accueil");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setPreferredSize(new Dimension(600, 400));
+
+        Container c = f.getContentPane();
+        c.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Bonjour "+ first_name+" !");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        c.add(title, BorderLayout.CENTER);
+
+        //Create the panel and the buttons inside
+        JPanel p1 = new JPanel();
+        p1.setLayout(new FlowLayout());
+
+        //TODO : affichage des missions demandés par les vulnérables
+
+        JButton demande = new JButton("Accepter Mission"); //set label to button
+        demande.setFont(new Font("Arial", Font.PLAIN, 20));
+        p1.add(demande);
+
+        JButton historique = new JButton("Accéder à vos mission en cours"); //set label to button
+        historique.setFont(new Font("Arial", Font.PLAIN, 20));
+        p1.add(historique);
+
+        //Make window's dimension fit its content
+        f.pack();
+
+        //Set frame and pane to visible
+        f.setVisible(true);
+        c.setVisible(true);
+
+        //Display the panel
+        c.add(p1, BorderLayout.PAGE_END);
+        p1.setVisible(true);
+
+        //Display the buttons
+        demande.setVisible(true);
+        historique.setVisible(true);
+    }
+
+    public void homepage_validator(String first_name){
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up window
+        JFrame f = new JFrame("Page d'accueil");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setPreferredSize(new Dimension(600, 400));
+
+        Container c = f.getContentPane();
+        c.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Bonjour "+ first_name+" !");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        c.add(title, BorderLayout.CENTER);
+
+        //Create the panel and the buttons inside
+        JPanel p1 = new JPanel();
+        p1.setLayout(new FlowLayout());
+
+        //TODO : affichage des missions demandés par les vulnérables
+
+        JButton demande = new JButton("Accepter demande"); //set label to button
+        demande.setFont(new Font("Arial", Font.PLAIN, 20));
+        p1.add(demande);
+
+        JButton historique = new JButton("Refuser demande"); //set label to button
+        historique.setFont(new Font("Arial", Font.PLAIN, 20));
+        p1.add(historique);
+
+        //Make window's dimension fit its content
+        f.pack();
+
+        //Set frame and pane to visible
+        f.setVisible(true);
+        c.setVisible(true);
+
+        //Display the panel
+        c.add(p1, BorderLayout.PAGE_END);
+        p1.setVisible(true);
+
+        //Display the buttons
+        demande.setVisible(true);
+        historique.setVisible(true);
+    }
 }
 
 

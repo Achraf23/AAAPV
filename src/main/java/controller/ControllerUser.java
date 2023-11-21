@@ -20,9 +20,7 @@ public abstract class ControllerUser {
 
     public abstract void addListener(JButton button);
 
-    public void insertUserIntoDatabase(User u) throws IOException {
-        Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword());
-    }
+    public abstract void insertUserIntoDatabase(User u) throws IOException;
 
     public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword) {
         ActionListener listener = new ActionListener() {
@@ -33,10 +31,12 @@ public abstract class ControllerUser {
                     String data = Database.associatedPassword(user.getMail());
                     if (data == null){
                         insertUserIntoDatabase(user);
+                        homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
                     }
 
                     else if (!data.equals(user.getPassword())){
                             System.out.println("erreur mauvais mdp");
+                            getVue().errorPassword();
                     } else {
                         homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
                     }
