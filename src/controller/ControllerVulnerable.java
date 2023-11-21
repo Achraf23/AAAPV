@@ -26,22 +26,10 @@ public class ControllerVulnerable extends ControllerUser{
         };
         button.addActionListener(listener);
     }
-    public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword){
-        ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                System.out.println("connect vulnerable");
-                Vulnerable user = new Vulnerable(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
-                try {
-                    ControllerVulnerable.super.insertUserIntoDatabase(user);
-                    ControllerVulnerable.super.getVue().homepage_vulnerable(user.getFirstname());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        };
-        b.addActionListener(listener);
+    @Override
+    public void homepage(String name) {
+        System.out.println("connect vulnerable");
+        ControllerVulnerable.super.getVue().homepage_vulnerable(name);
     }
-
 }
