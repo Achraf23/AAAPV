@@ -45,4 +45,7 @@ public class User {
 
     public String getPassword(){return password;}
 
+    public String getMail() {
+        return this.mail;
+    }
 }

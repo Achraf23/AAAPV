@@ -24,22 +24,21 @@ public abstract class ControllerUser {
         Database.insertLineIntoUser(u.getId(),u.name,u.firstname,u.mail,u.getPassword());
     }
 
-
-    //Should use static method getUser that returns true if User present
-    public boolean connectUser(String mail, String password){
-        return Database.getUser(mail,password);
-    }
-
-
     public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword) {
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Volunteer user = new Volunteer(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
+                User user = new User(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
                 try {
+                    String data = Database.associatedPassword(user.getMail());
+                    if (data == null){
+                        insertUserIntoDatabase(user);
+                    }
 
-                    insertUserIntoDatabase(user);
-                    homepage(user.getFirstname());
+                    else if (!data.equals(user.getPassword())){
+                            System.out.println("erreur mauvais mdp");
+                    }
+                    homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -1,7 +1,5 @@
 package model;
 
-import vue.GUI;
-
 import java.sql.*;
 
 public class Database {
@@ -14,7 +12,6 @@ public class Database {
 
     public static void main(String[] args){
         connectToDatabase();
-        getUser("23@gma","root");
 
     }
 
@@ -84,33 +81,34 @@ public class Database {
 
     }
 
-    public static boolean getUser(String mail,String password){
+    public static String associatedPassword(String mail){
         Statement statement=null;
         try {
             statement = con.createStatement();
 
         }catch(SQLException s){
-            System.out.println("Error add line Table");
+            System.out.println("Error createStatement database");
             //throw  new SQLException();
         }
 
         try{
-            String query = String.format("SELECT * FROM User WHERE email='%s' and keyword='%s'",mail,password);
+            String query = String.format("SELECT * FROM User WHERE email='%s'",mail);
             //String query = "SELECT id FROM User;";
             System.out.println(query);
             ResultSet rs=statement.executeQuery(query);
 
             if (rs.next()) {
-                String x = rs.getString("email");
-                System.out.println(x);
-                return  true;            }
+                String m = rs.getString("email");
+                System.out.println(m);  //print le mail s'il existe déja dans la bdd
+                return rs.getString("keyword");  //retourne le password associé au mail
+            }
         }catch (SQLException s){
             System.out.println("getUser Error");
             s.getErrorCode();
             s.getMessage();
 
         }
-        return false;
+        return null;
     }
 
 
