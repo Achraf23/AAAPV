@@ -37,8 +37,10 @@ public abstract class ControllerUser {
 
                     else if (!data.equals(user.getPassword())){
                             System.out.println("erreur mauvais mdp");
+                    } else {
+                        homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
                     }
-                    homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
+
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

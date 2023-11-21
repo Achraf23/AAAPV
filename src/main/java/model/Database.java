@@ -54,7 +54,7 @@ public class Database {
         try {
             statement.executeUpdate("INSERT INTO User " + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"')");
         }catch (SQLException s){
-            System.out.println("Insert User Line error");
+            System.out.println("User already in");
             s.getErrorCode();
             s.getMessage();
         }
@@ -92,14 +92,12 @@ public class Database {
         }
 
         try{
-            String query = String.format("SELECT * FROM User WHERE email='%s'",mail);
+            String query = String.format("SELECT * FROM User WHERE mail='%s'",mail);
             //String query = "SELECT id FROM User;";
             //System.out.println(query);
             ResultSet rs=statement.executeQuery(query);
-            System.out.println("before");
             if (rs.next()) {
-                System.out.println("in");
-                String m = rs.getString("email");
+                String m = rs.getString("mail");
                 System.out.println(m);  //print le mail s'il existe déja dans la bdd
                 return rs.getString("keyword");  //retourne le password associé au mail
             }
