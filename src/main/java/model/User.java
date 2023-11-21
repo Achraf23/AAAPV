@@ -5,8 +5,6 @@ import java.sql.SQLException;
 public class User {
     public String name;
     public String firstname;
-    private static int nbrTotalUser = 0;
-    private int id;;
     public EnumUser type;
     public String mail;
     private String password;
@@ -14,7 +12,6 @@ public class User {
     public User(String name, String firstname, String mail, String password) {
         this.name = name;
         this.firstname = firstname;
-        this.id = nbrTotalUser++;
         this.mail = mail;
         this.password = password;
     }
@@ -23,9 +20,6 @@ public class User {
         return firstname;
     }
 
-    public int getId() {
-        return id;
-    }
     public User(){
 
     }

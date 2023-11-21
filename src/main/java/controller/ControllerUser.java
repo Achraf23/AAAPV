@@ -21,7 +21,7 @@ public abstract class ControllerUser {
     public abstract void addListener(JButton button);
 
     public void insertUserIntoDatabase(User u) throws IOException {
-        Database.insertLineIntoUser(u.getId(),u.name,u.firstname,u.mail,u.getPassword());
+        Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword());
     }
 
     public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword) {
