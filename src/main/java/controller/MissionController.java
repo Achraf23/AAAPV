@@ -10,7 +10,7 @@ public class MissionController {
     }
 
     void insertMissionIntoDatabase(Mission m){
-        Database.insertLineIntoMission(m.getLocation(),m.getDate(),m.getDescription());
+        Database.insertLineIntoMission(m);
 
     }
 

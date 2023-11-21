@@ -15,7 +15,7 @@ public class Database {
 
     public static void main(String[] args){
         connectToDatabase();
-        System.out.println(getAllMissions().size());
+
     }
 
 
@@ -50,11 +50,9 @@ public class Database {
             System.out.println("Error add line Table");
             //throw  new SQLException();
         }
-        // insert the data
-        //statement.executeUpdate("INSERT INTO User " + "VALUES (1, 'Simpson', 'Mr.', 'Springfield', 'root')");
 
         try {
-            statement.executeUpdate("INSERT INTO User (nom,firstname,mail, keyword, typeUser)" + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"', '"+type+"')");
+            statement.executeUpdate("INSERT INTO User (nom,firstname,mailUser, keyword, typeUser)" + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"', '"+type+"')");
         }catch (SQLException s){
             System.out.println("User already in");
             s.getErrorCode();
@@ -63,7 +61,7 @@ public class Database {
 
     }
 
-    public static void insertLineIntoMission(String location, String date, String description) {
+    public static void insertLineIntoMission(Mission m) {
         statement=null;
         try {
             statement = con.createStatement();
@@ -74,7 +72,8 @@ public class Database {
         }
 
         try {
-            statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+location+"', '"+date+"', '"+description+"')");
+            statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+
+                    m.getVulnerable().getMail()+"','"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"')");
         }catch (SQLException s){
             System.out.println("Insert User Line error");
             s.getErrorCode();
@@ -83,7 +82,7 @@ public class Database {
 
     }
 
-    public static String associatedPassword(String mail){
+    public static String getUserPassword(String mail) throws SQLException{
         statement=null;
         try {
             statement = con.createStatement();
@@ -93,22 +92,16 @@ public class Database {
             //throw  new SQLException();
         }
 
-        try{
-            String query = String.format("SELECT * FROM User WHERE mail='%s'",mail);
+        String query = String.format("SELECT * FROM User WHERE mailUser='%s'",mail);
             //String query = "SELECT id FROM User;";
             //System.out.println(query);
-            ResultSet rs=statement.executeQuery(query);
-            if (rs.next()) {
-                String m = rs.getString("mail");
-                System.out.println(m);  //print le mail s'il existe déja dans la bdd
-                return rs.getString("keyword");  //retourne le password associé au mail
-            }
-        }catch (SQLException s){
-            System.out.println("getUser Error");
-            s.getErrorCode();
-            s.getMessage();
-
+        ResultSet rs=statement.executeQuery(query);
+        if (rs.next()) {
+            String m = rs.getString("mailUser");
+            System.out.println(m);  //print le mail s'il existe déja dans la bdd
+            return rs.getString("keyword");  //retourne le password associé au mail
         }
+
         return null;
     }
 
@@ -128,7 +121,7 @@ public class Database {
 
             ResultSet rs=statement.executeQuery(query);
             if (rs.next()) {
-                Vulnerable v =new Vulnerable(rs.getString("nom"),rs.getString("firstname"),rs.getString("mail"),rs.getString("keyword"));
+                Vulnerable v =new Vulnerable(rs.getString("nom"),rs.getString("firstname"),rs.getString("mailUser"),rs.getString("keyword"));
                 missions.add(new Mission(v,rs.getString("location"),rs.getString("dateMission"),rs.getString("description")));
             }
         }catch (SQLException s){

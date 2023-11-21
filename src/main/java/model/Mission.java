@@ -7,6 +7,10 @@ public class Mission {
     private String date;
     private String description;
 
+    public Vulnerable getVulnerable() {
+        return vulnerable;
+    }
+
     public String getDate() {
         return date;
     }

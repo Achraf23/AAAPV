@@ -2,6 +2,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import vue.GUI;
 import model.*;
 import javax.swing.*;
@@ -27,23 +29,33 @@ public abstract class ControllerUser {
             @Override
             public void actionPerformed(ActionEvent e) {
                 User user = new User(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
-                try {
-                    String data = Database.associatedPassword(user.getMail());
-                    if (data == null){
-                        insertUserIntoDatabase(user);
-                        homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
-                    }
 
-                    else if (!data.equals(user.getPassword())){
+                try {
+                    String password = Database.getUserPassword(user.getMail());
+                    if(password==null){
+                        try {
+                            insertUserIntoDatabase(user);
+                            homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
+                        }catch (IOException ex){
+                            System.out.println("Mail already taken");
+                            throw new RuntimeException(ex);
+                        }
+                    }else{
+                        if(password.equals(user.getPassword())){
+                            homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
+                        }else{
                             System.out.println("erreur mauvais mdp");
                             getVue().errorPassword();
-                    } else {
-                        homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
+                        }
                     }
 
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                }catch (SQLException s){
+                    //No mail matching ==> create User
+                    System.out.println("Query exception");
+                    throw new RuntimeException();
+
                 }
+
             }
         };
         b.addActionListener(listener);
