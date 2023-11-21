@@ -8,6 +8,7 @@ public class User {
     public EnumUser type;
     public String mail;
     private String password;
+    int id;
 
     public User(String name, String firstname, String mail, String password) {
         this.name = name;
