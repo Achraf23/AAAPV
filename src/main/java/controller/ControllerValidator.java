@@ -31,22 +31,10 @@ public class ControllerValidator extends ControllerUser{
 
 
 
-    public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword){
-        ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                System.out.println("connect vulnerable");
-                Validator user = new Validator(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
-                try {
-                    ControllerValidator.super.insertUserIntoDatabase(user);
-                    ControllerValidator.super.getVue().homepage_vulnerable(user.getFirstname());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        };
-        b.addActionListener(listener);
+    @Override
+    public void homepage(String name) {
+        System.out.println("connect validator");
+        ControllerValidator.super.getVue().homepage_vulnerable(name); //TODO homepage vulnerable
     }
 }
 

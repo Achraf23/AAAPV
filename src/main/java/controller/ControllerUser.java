@@ -1,4 +1,6 @@
 package controller;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import vue.GUI;
 import model.*;
@@ -29,5 +31,22 @@ public abstract class ControllerUser {
     }
 
 
-    public abstract void addConnexionListener(JButton button, JTextField tsurname, JTextField tname, JTextField temail, JPasswordField tpassword);
+    public void addConnexionListener(JButton b, final JTextField tname, final JTextField tfirstname, final JTextField temail, final JPasswordField tpassword) {
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Volunteer user = new Volunteer(tname.getText(), tfirstname.getText(), temail.getText(), String.valueOf(tpassword.getPassword()));
+                try {
+
+                    insertUserIntoDatabase(user);
+                    homepage(user.getFirstname());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        };
+        b.addActionListener(listener);
+    }
+
+    public abstract void homepage(String name);
 }
