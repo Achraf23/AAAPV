@@ -7,5 +7,5 @@ Un utilisateur demandeur d'aide pourra poster une mission en indiquant ses besoi
 Pour plus de détail sur les fonctionnalités développées et sur les choix d'implémentation, nous vous invitons à lire le rapport présent sur le Git.
 
 
-**Projet réalisé par Bensebaa Achraf, Genty Emilie et Pioche Océane.
+***Projet réalisé par Bensebaa Achraf, Genty Emilie et Pioche Océane.***
 
