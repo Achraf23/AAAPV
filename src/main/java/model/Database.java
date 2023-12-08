@@ -134,6 +134,22 @@ public class Database {
         }
     }
 
+    public static void deleteMission(Mission m){
+        initQuery();
+        try {
+            statement.executeUpdate("delete FROM Mission WHERE '("+m.getVulnerable().getMail()+"','"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"')");
+        }catch (SQLException s){
+            System.out.println("deleteMissions error");
+            s.getErrorCode();
+            s.getMessage();
+        }
+    }
+
+    public static void updateMission(Mission m){
+        deleteMission(m);
+        insertLineIntoMission(m);
+    }
+
     public static void deleteUsers(){
         initQuery();
         try {

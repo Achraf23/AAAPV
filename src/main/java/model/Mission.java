@@ -6,9 +6,28 @@ public class Mission {
     private String location;
     private String date;
     private String description;
+    private int id;
+    private Volunteer volunteer;
+
+    public Mission(Vulnerable v, String location, String date, String description) {
+        this.vulnerable = v;
+        this.location = location;
+        this.date = date;
+        this.description = description;
+        this.id = nbrTotalMission++;
+        this.volunteer = null;
+    }
 
     public Vulnerable getVulnerable() {
         return vulnerable;
+    }
+
+    public void setVolunteer(Volunteer v){
+        this.volunteer = v;
+    }
+
+    public Volunteer getVolunteer() {
+        return volunteer;
     }
 
     public String getDate() {
@@ -27,15 +46,7 @@ public class Mission {
         return location;
     }
 
-    private int id;
-    private User volunteer;
 
-    public Mission(Vulnerable v, String location, String date, String description) {
-        this.vulnerable = v;
-        this.location = location;
-        this.date = date;
-        this.description = description;
-        this.id = nbrTotalMission++;
-        this.volunteer = null;
-    }
+
+
 }

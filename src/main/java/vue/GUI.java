@@ -220,7 +220,7 @@ public class GUI {
         historique.setVisible(true);
     }
 
-    public void homepage_volunteer(String first_name){
+    public void homepage_volunteer(String first_name, ControllerVolunteer controllerVolunteer){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -248,11 +248,13 @@ public class GUI {
 
         JButton demande = new JButton("Accepter Mission"); //set label to button
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
-        p1.add(demande);
+        p1.add(demande); //TODO : 1 bouton par ligne (par mission possible)
+        //controllerVolunteer.addMissionSelectionListener(demande, index du bouton = 0 pour le premier...);
 
         JButton historique = new JButton("Accéder à vos mission en cours"); //set label to button
         historique.setFont(new Font("Arial", Font.PLAIN, 20));
         p1.add(historique);
+        controllerVolunteer.addPrintMissionListener(historique);
 
         //Make window's dimension fit its content
         f.pack();
@@ -322,7 +324,12 @@ public class GUI {
 
     public void mission_vulnerable(ArrayList<Mission> missions){
         //TODO : afficher liste des missions
-        System.out.println("affichage");
+        System.out.println("mes missions demandées/en cours");
+    }
+
+    public void mission_volunteer(ArrayList<Mission> missions){
+        //TODO : afficher liste des missions
+        System.out.println("les missions que j'ai accepté (en attende de validation)");
     }
 }
 
