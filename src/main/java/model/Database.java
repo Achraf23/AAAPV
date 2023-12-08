@@ -40,49 +40,7 @@ public class Database {
 
     }
 
-
-    //Testing Insert Line Table ==> Will change later
-    public static void insertLineIntoUser(String name, String firstname, String mail, String password, EnumUser type) {
-        try {
-            statement = con.createStatement();
-
-        }catch(SQLException s){
-            System.out.println("Error add line Table");
-            //throw  new SQLException();
-        }
-
-        try {
-            statement.executeUpdate("INSERT INTO User (nom,firstname,mailUser, keyword, typeUser)" + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"', '"+type+"')");
-        }catch (SQLException s){
-            System.out.println("User already in");
-            s.getErrorCode();
-            s.getMessage();
-        }
-
-    }
-
-    public static void insertLineIntoMission(Mission m) {
-        statement=null;
-        try {
-            statement = con.createStatement();
-
-        }catch(SQLException s){
-            System.out.println("Error add line Table");
-            //throw  new SQLException();
-        }
-
-        try {
-            statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+
-                    m.getVulnerable().getMail()+"','"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"')");
-        }catch (SQLException s){
-            System.out.println("Insert User Line error");
-            s.getErrorCode();
-            s.getMessage();
-        }
-
-    }
-
-    public static String getUserPassword(String mail) throws SQLException{
+    private static void initQuery(){
         statement=null;
         try {
             statement = con.createStatement();
@@ -91,6 +49,42 @@ public class Database {
             System.out.println("Error createStatement database");
             //throw  new SQLException();
         }
+    }
+
+
+    public static boolean insertLineIntoUser(String name, String firstname, String mail, String password, EnumUser type) {
+        initQuery();
+
+        try {
+            statement.executeUpdate("INSERT INTO User (nom,firstname,mailUser, keyword, typeUser)" + "VALUES ('"+name+"', '"+firstname+"', '"+mail+"', '"+password+"', '"+type+"')");
+            return true;
+        }catch (SQLException s){
+            System.out.println("User already in");
+            s.getErrorCode();
+            s.getMessage();
+            return false;
+        }
+
+    }
+
+    public static boolean insertLineIntoMission(Mission m) {
+        initQuery();
+
+        try {
+            statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+
+                    m.getVulnerable().getMail()+"','"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"')");
+            return true;
+        }catch (SQLException s){
+            System.out.println("Insert Mission error");
+            s.getErrorCode();
+            s.getMessage();
+            return false;
+        }
+
+    }
+
+    public static String getUserPassword(String mail) throws SQLException{
+        initQuery();
 
         String query = String.format("SELECT * FROM User WHERE mailUser='%s'",mail);
             //String query = "SELECT id FROM User;";
@@ -108,19 +102,13 @@ public class Database {
     public static ArrayList<Mission> getAllMissions(){
         ArrayList<Mission> missions=new ArrayList<Mission>();
 
-        try {
-            statement = con.createStatement();
-
-        }catch(SQLException s){
-            System.out.println("Error createStatement database");
-            //throw  new SQLException();
-        }
+        initQuery();
 
         try{
             String query = String.format("SELECT * FROM Mission natural join User");
 
             ResultSet rs=statement.executeQuery(query);
-            if (rs.next()) {
+            while (rs.next()) {
                 Vulnerable v =new Vulnerable(rs.getString("nom"),rs.getString("firstname"),rs.getString("mailUser"),rs.getString("keyword"));
                 missions.add(new Mission(v,rs.getString("location"),rs.getString("dateMission"),rs.getString("description")));
             }
@@ -133,6 +121,28 @@ public class Database {
 
         return missions;
 
+    }
+
+    public static void deleteMissions(){
+        initQuery();
+        try {
+            statement.executeUpdate("delete FROM Mission ");
+        }catch (SQLException s){
+            System.out.println("deleteMissions error");
+            s.getErrorCode();
+            s.getMessage();
+        }
+    }
+
+    public static void deleteUsers(){
+        initQuery();
+        try {
+            statement.executeUpdate("delete FROM User ");
+        }catch (SQLException s){
+            System.out.println("deleteUsers error");
+            s.getErrorCode();
+            s.getMessage();
+        }
     }
 
 
