@@ -1,17 +1,18 @@
 package controller;
 
-import model.Database;
-import model.EnumUser;
-import model.User;
-import model.Vulnerable;
+import model.*;
 import vue.GUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ControllerVulnerable extends ControllerUser{
+
+    private Vulnerable user = null;
 
     public ControllerVulnerable(GUI vue) {
         super(vue);}
@@ -29,14 +30,47 @@ public class ControllerVulnerable extends ControllerUser{
         button.addActionListener(listener);
     }
 
+    public void addMissionCreationListener(final JButton b, final JTextField tlocation, final JTextField tdate, final JTextField tdescription) {
+        final ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("création mission");
+                Mission m = new Mission(getUser(), tlocation.getText(), tdate.getText(), tdescription.getText());
+                Database.insertLineIntoMission(m);
+            }
+        };
+        b.addActionListener(listener);
+    }
+
+    public void addPrintMissionListener(final JButton b) {
+        final ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Mission> allMissions = Database.getAllMissions();
+                ArrayList<Mission> myMissions = new ArrayList<>();
+                for (Mission m : allMissions){
+                    if (m.getVulnerable().equals(getUser())){
+                        myMissions.add(m);
+                    }
+                }
+                getVue().mission_vulnerable(myMissions);
+            }
+        };
+        b.addActionListener(listener);
+    }
+
     @Override
     public void insertUserIntoDatabase(User u) throws IOException {
         Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Vulnerable);
     }
 
+    public Vulnerable getUser(){
+        return this.user;
+    }
     @Override
-    public void homepage(String name) {
+    public void homepage(User user) {
         System.out.println("connect vulnerable");
-        ControllerVulnerable.super.getVue().homepage_vulnerable(name);
+        this.user = new Vulnerable(user.name, user.firstname, user.mail, user.getPassword());
+        ControllerVulnerable.super.getVue().homepage_vulnerable(user.name, ControllerVulnerable.this);
     }
 }

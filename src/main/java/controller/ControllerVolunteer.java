@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class ControllerVolunteer extends ControllerUser{
+    private Volunteer user = null;
     public ControllerVolunteer(GUI vue) {
         super(vue);
     }
@@ -31,9 +32,13 @@ public class ControllerVolunteer extends ControllerUser{
         Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Volunteer);
     }
 
+    public Volunteer getUser(){
+        return this.user;
+    }
     @Override
-    public void homepage(String name) {
+    public void homepage(User user) {
+        this.user = new Volunteer(user.name, user.firstname, user.mail, user.getPassword());
         System.out.println("connect volunteer");
-        ControllerVolunteer.super.getVue().homepage_volunteer(name);
+        ControllerVolunteer.super.getVue().homepage_volunteer(user.name);
     }
 }

@@ -11,7 +11,7 @@ import javax.swing.*;
 public abstract class ControllerUser {
     Database db;
     GUI vue;
-    ControllerUser(GUI vue){
+    public ControllerUser(GUI vue){
         this.vue = vue;
         Database.connectToDatabase();
     }
@@ -35,14 +35,14 @@ public abstract class ControllerUser {
                     if(password==null){
                         try {
                             insertUserIntoDatabase(user);
-                            homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
+                            homepage(user); //lance le bon homepage en fonction du type d'user
                         }catch (IOException ex){
                             System.out.println("Mail already taken");
                             throw new RuntimeException(ex);
                         }
                     }else{
                         if(password.equals(user.getPassword())){
-                            homepage(user.getFirstname()); //lance le bon homepage en fonction du type d'user
+                            homepage(user); //lance le bon homepage en fonction du type d'user
                         }else{
                             System.out.println("erreur mauvais mdp");
                             getVue().errorPassword();
@@ -61,5 +61,5 @@ public abstract class ControllerUser {
         b.addActionListener(listener);
     }
 
-    public abstract void homepage(String name);
+    public abstract void homepage(User u);
 }

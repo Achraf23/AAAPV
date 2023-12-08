@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class ControllerValidator extends ControllerUser{
+    private Validator user = null;
     public ControllerValidator(GUI vue) {
         super(vue);
     }
@@ -31,10 +32,14 @@ public class ControllerValidator extends ControllerUser{
         Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Validator);
     }
 
+    public Validator getUser(){
+        return this.user;
+    }
     @Override
-    public void homepage(String name) {
+    public void homepage(User user) {
+        this.user = new Validator(user.name, user.firstname, user.mail, user.getPassword());
         System.out.println("connect validator");
-        ControllerValidator.super.getVue().homepage_validator(name);
+        ControllerValidator.super.getVue().homepage_validator(user.name);
     }
 }
 

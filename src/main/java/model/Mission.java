@@ -28,7 +28,7 @@ public class Mission {
     }
 
     private int id;
-    private Volunteer volunteer;
+    private User volunteer;
 
     public Mission(Vulnerable v, String location, String date, String description) {
         this.vulnerable = v;

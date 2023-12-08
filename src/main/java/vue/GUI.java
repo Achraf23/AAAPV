@@ -4,9 +4,11 @@ import controller.ControllerUser;
 import controller.ControllerValidator;
 import controller.ControllerVolunteer;
 import controller.ControllerVulnerable;
+import model.Mission;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GUI {
     public GUI(){
@@ -165,7 +167,7 @@ public class GUI {
         JOptionPane.showMessageDialog(frame,"Le mot de passe est incorrect !", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void homepage_vulnerable(String first_name){
+    public void homepage_vulnerable(String first_name, ControllerVulnerable controllerVulnerable){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -193,9 +195,14 @@ public class GUI {
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
         p1.add(demande);
 
+        //TODO : ajouter les jTextFiels mettre les valeurs en param de la ligne suivante
+        //controllerVulnerable.addMissionCreationListener(demande, param...);
+
+
         JButton historique = new JButton("Gérer vos demandes en cours"); //set label to button
         historique.setFont(new Font("Arial", Font.PLAIN, 20));
         p1.add(historique);
+        controllerVulnerable.addPrintMissionListener(historique);
 
         //Make window's dimension fit its content
         f.pack();
@@ -311,6 +318,11 @@ public class GUI {
         //Display the buttons
         demande.setVisible(true);
         historique.setVisible(true);
+    }
+
+    public void mission_vulnerable(ArrayList<Mission> missions){
+        //TODO : afficher liste des missions
+        System.out.println("affichage");
     }
 }
 

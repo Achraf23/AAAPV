@@ -21,8 +21,11 @@ public class User {
         return firstname;
     }
 
-    public User(){
 
+    @Override
+    public boolean equals(Object obj) {
+        User u = (User) obj;
+        return (this.name.equals(u.name) && this.firstname.equals(u.firstname) && this.mail.equals(u.mail) && this.password.equals(u.password));
     }
 
     void register(User u) throws SQLException {
@@ -37,6 +40,11 @@ public class User {
     /*public abstract void printLaunchScreen();
     pour vulnerable -> add mission / pour volunteer -> toutes les missions / pour validateur -> toutes les missionSelected
     */
+
+    public String getName() {
+        return name;
+    }
+
 
     public String getPassword(){return password;}
 
