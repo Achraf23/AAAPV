@@ -26,4 +26,6 @@ public abstract class ControllerMission {
         return Database.getAllMissions();
     }
 
+
+
 }

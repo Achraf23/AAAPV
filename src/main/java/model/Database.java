@@ -80,7 +80,6 @@ public class Database {
             s.getMessage();
             return false;
         }
-
     }
 
     public static String getUserPassword(String mail) throws SQLException{
@@ -137,9 +136,9 @@ public class Database {
     public static void deleteMission(Mission m){
         initQuery();
         try {
-            statement.executeUpdate("delete FROM Mission WHERE '("+m.getVulnerable().getMail()+"','"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"')");
+            statement.executeUpdate("delete FROM Mission WHERE mailUser='"+m.getVulnerable().getMail()+"' AND location='"+m.getLocation()+"' AND dateMission='"+m.getDate()+"' AND description='"+m.getDescription()+"'");
         }catch (SQLException s){
-            System.out.println("deleteMissions error");
+            System.out.println("deleteMission error");
             s.getErrorCode();
             s.getMessage();
         }

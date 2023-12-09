@@ -45,8 +45,7 @@ public class Mission {
     public String getLocation() {
         return location;
     }
-
-
+    
 
 
 }

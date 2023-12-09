@@ -45,6 +45,7 @@ public class ControllerVolunteer extends ControllerUser{
                 ArrayList<Mission> allMissions = Database.getAllMissions();
                 Mission m = allMissions.get(index);
                 m.setVolunteer(getUser());
+                System.out.println("selected mission's volunteer : "+m.getVolunteer());
                 Database.updateMission(m);
             }
         };
@@ -59,10 +60,12 @@ public class ControllerVolunteer extends ControllerUser{
                 System.out.println(allMissions);
                 ArrayList<Mission> myMissions = new ArrayList<>();
                 for (Mission m : allMissions){
-                    if (m.getVolunteer()!=null && m.getVolunteer().equals(getUser())){
+                    System.out.println("mission's volunteer : "+m.getVolunteer()+" and user : "+getUser());
+                    if (m.getVolunteer() != null && m.getVolunteer().equals(getUser())){
                         myMissions.add(m);
                     }
                 }
+                System.out.println("my missions : "+myMissions);
                 getVue().mission_volunteer(myMissions);
                 System.out.println(myMissions);
             }
@@ -70,22 +73,6 @@ public class ControllerVolunteer extends ControllerUser{
         b.addActionListener(listener);
     }
 
-    public void addPrintAllMissionsListener(final JButton b) {
-        final ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Mission> allMissions = Database.getAllMissions();
-                ArrayList<Mission> myMissions = new ArrayList<>();
-                for (Mission m : allMissions){
-                    if (m.getVolunteer()==null){
-                        myMissions.add(m);
-                    }
-                }
-                getVue().mission_volunteer(myMissions);
-            }
-        };
-        b.addActionListener(listener);
-    }
 
     @Override
     public void homepage(User user) {
