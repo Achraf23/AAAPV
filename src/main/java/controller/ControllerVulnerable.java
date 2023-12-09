@@ -59,6 +59,17 @@ public class ControllerVulnerable extends ControllerUser{
         b.addActionListener(listener);
     }
 
+    public void addOpenHelpListener(final JButton b) {
+        final ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("accueil demande aide");
+                getVue().askForHelp(ControllerVulnerable.this);
+            }
+        };
+        b.addActionListener(listener);
+    }
+
     @Override
     public void insertUserIntoDatabase(User u) throws IOException {
         Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Vulnerable);
@@ -71,6 +82,6 @@ public class ControllerVulnerable extends ControllerUser{
     public void homepage(User user) {
         System.out.println("connect vulnerable");
         this.user = new Vulnerable(user.name, user.firstname, user.mail, user.getPassword());
-        ControllerVulnerable.super.getVue().homepage_vulnerable(user.name, ControllerVulnerable.this);
+        ControllerVulnerable.super.getVue().homepage_vulnerable(user.firstname, ControllerVulnerable.this);
     }
 }
