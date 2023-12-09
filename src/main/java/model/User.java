@@ -32,4 +32,8 @@ public class User {
     public String getMail() {
         return this.mail;
     }
+
+    public String getFirstname() {
+        return this.firstname;
+    }
 }
