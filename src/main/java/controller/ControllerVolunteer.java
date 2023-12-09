@@ -56,9 +56,28 @@ public class ControllerVolunteer extends ControllerUser{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Mission> allMissions = Database.getAllMissions();
+                System.out.println(allMissions);
                 ArrayList<Mission> myMissions = new ArrayList<>();
                 for (Mission m : allMissions){
                     if (m.getVolunteer()!=null && m.getVolunteer().equals(getUser())){
+                        myMissions.add(m);
+                    }
+                }
+                getVue().mission_volunteer(myMissions);
+                System.out.println(myMissions);
+            }
+        };
+        b.addActionListener(listener);
+    }
+
+    public void addPrintAllMissionsListener(final JButton b) {
+        final ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Mission> allMissions = Database.getAllMissions();
+                ArrayList<Mission> myMissions = new ArrayList<>();
+                for (Mission m : allMissions){
+                    if (m.getVolunteer()==null){
                         myMissions.add(m);
                     }
                 }
@@ -72,6 +91,15 @@ public class ControllerVolunteer extends ControllerUser{
     public void homepage(User user) {
         this.user = new Volunteer(user.name, user.firstname, user.mail, user.getPassword());
         System.out.println("connect volunteer");
-        ControllerVolunteer.super.getVue().homepage_volunteer(user.name, ControllerVolunteer.this);
+
+        ArrayList<Mission> allMissions = Database.getAllMissions();
+        System.out.println(allMissions);
+        ArrayList<Mission> emptyMissions = new ArrayList<>();
+        for (Mission m : allMissions){
+            if (m.getVolunteer()==null){
+                emptyMissions.add(m);
+            }
+        }
+        ControllerVolunteer.super.getVue().homepage_volunteer(user.firstname, emptyMissions,ControllerVolunteer.this);
     }
 }

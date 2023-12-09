@@ -167,6 +167,83 @@ public class GUI {
         JOptionPane.showMessageDialog(frame,"Le mot de passe est incorrect !", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
 
+    public void askForHelp(ControllerVulnerable controllerVulnerable) {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up window
+        JFrame f = new JFrame("Demande d'aide");
+        f.setResizable(false);
+        f.setBounds(300, 90, 800, 450);
+
+        Container c = f.getContentPane();
+        c.setLayout(null);
+
+        JLabel title = new JLabel("Demander de l'aide");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setSize(350, 30);
+        title.setLocation(250, 25);
+        c.add(title);
+
+        //PARAMETRES DE DEMANDE D'AIDE
+
+        //Lieu
+        JLabel address = new JLabel("Adresse :");
+        address.setFont(new Font("Arial", Font.PLAIN, 20));
+        address.setSize(150,20);
+        address.setLocation(100, 100);
+        c.add(address);
+
+        JTextField taddress = new JTextField();
+        taddress.setFont(new Font("Arial", Font.PLAIN, 15));
+        taddress.setSize(190, 30);
+        taddress.setLocation(450, 100);
+        c.add(taddress);
+
+        //Date
+        JLabel date = new JLabel("Date :");
+        date.setFont(new Font("Arial", Font.PLAIN, 20));
+        date.setSize(100, 20);
+        date.setLocation(100, 150);
+        c.add(date);
+
+        JTextField tdate = new JTextField();
+        tdate.setFont(new Font("Arial", Font.PLAIN, 15));
+        tdate.setSize(190, 30);
+        tdate.setLocation(450, 150);
+        c.add(tdate);
+
+        //Description de l'aide souhaitée
+        JLabel desc = new JLabel("Description de l'aide :");
+        desc.setFont(new Font("Arial", Font.PLAIN, 20));
+        desc.setSize(300, 20);
+        desc.setLocation(100,200);
+        c.add(desc);
+
+        JTextField tdesc = new JTextField();
+        tdesc.setFont(new Font("Arial", Font.PLAIN, 15));
+        tdesc.setSize(190, 30);
+        tdesc.setLocation(450, 200);
+        c.add(tdesc);
+
+
+        //Bouton aide
+        JButton button = new JButton("Demander de l'aide"); //set label to button
+        button.setFont(new Font("Arial", Font.PLAIN, 15));
+        button.setSize(200, 40);
+        button.setLocation(300, 325);
+        c.add(button);
+        controllerVulnerable.addMissionCreationListener(button, taddress, tdate, tdesc);
+
+        //Frame config
+        f.setVisible(true);
+        c.setVisible(true);
+        button.setVisible(true);
+    }
+
     public void homepage_vulnerable(String first_name, ControllerVulnerable controllerVulnerable){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -191,12 +268,11 @@ public class GUI {
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout());
 
+
         JButton demande = new JButton("Demander de l'aide"); //set label to button
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
         p1.add(demande);
-
-        //TODO : ajouter les jTextFiels mettre les valeurs en param de la ligne suivante
-        //controllerVulnerable.addMissionCreationListener(demande, param...);
+        controllerVulnerable.addOpenHelpListener(demande); //appelle la méthode askforhelp lorsqu'on appuie sur le bouton
 
 
         JButton historique = new JButton("Gérer vos demandes en cours"); //set label to button
@@ -220,7 +296,7 @@ public class GUI {
         historique.setVisible(true);
     }
 
-    public void homepage_volunteer(String first_name, ControllerVolunteer controllerVolunteer){
+    public void homepage_volunteer(String first_name, ArrayList<Mission> missions, ControllerVolunteer controllerVolunteer){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -230,7 +306,7 @@ public class GUI {
         //Set up window
         JFrame f = new JFrame("Page d'accueil");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setPreferredSize(new Dimension(600, 400));
+        f.setPreferredSize(new Dimension(800, 400));
 
         Container c = f.getContentPane();
         c.setLayout(new BorderLayout());
@@ -238,17 +314,27 @@ public class GUI {
         JLabel title = new JLabel("Bonjour "+ first_name+" !");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        c.add(title, BorderLayout.CENTER);
+        c.add(title, BorderLayout.PAGE_START);
 
         //Create the panel and the buttons inside
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout());
 
-        //TODO : affichage des missions demandés par les vulnérables
+        //Affichage des missions demandées par les vulnérables
+        DefaultListModel miss = new DefaultListModel<>();
+        for(Mission mission : missions){
+            miss.addElement("Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
+        }
+
+        JList list = new JList<>(miss);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+
+        c.add(list);
 
         JButton demande = new JButton("Accepter Mission"); //set label to button
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
-        p1.add(demande); //TODO : 1 bouton par ligne (par mission possible)
+        p1.add(demande); //TODO : ajouter la demande sélectionnée aux missions
         //controllerVolunteer.addMissionSelectionListener(demande, index du bouton = 0 pour le premier...);
 
         JButton historique = new JButton("Accéder à vos mission en cours"); //set label to button
@@ -272,7 +358,7 @@ public class GUI {
         historique.setVisible(true);
     }
 
-    public void homepage_validator(String first_name){
+    public void homepage_validator(String first_name, ArrayList<Mission> missions){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -290,13 +376,23 @@ public class GUI {
         JLabel title = new JLabel("Bonjour "+ first_name+" !");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        c.add(title, BorderLayout.CENTER);
+        c.add(title, BorderLayout.PAGE_START);
 
         //Create the panel and the buttons inside
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout());
 
-        //TODO : affichage des missions demandés par les vulnérables
+        //Affichage des missions demandées par les vulnérables
+        DefaultListModel miss = new DefaultListModel<>();
+        for(Mission mission : missions){
+            miss.addElement("Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
+        }
+
+        JList list = new JList<>(miss);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+
+        c.add(list);
 
         JButton demande = new JButton("Accepter demande"); //set label to button
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -323,12 +419,78 @@ public class GUI {
     }
 
     public void mission_vulnerable(ArrayList<Mission> missions){
-        //TODO : afficher liste des missions
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up window
+        JFrame f = new JFrame("AAAPV");
+        f.setResizable(true);
+        f.setBounds(300, 90, 800, 450);
+
+        Container c = f.getContentPane();
+        c.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Vos demandes en cours");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setSize(350, 30);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        c.add(title, BorderLayout.PAGE_START);
+
+        DefaultListModel miss = new DefaultListModel<>();
+        for(Mission mission : missions){
+            miss.addElement("Pour vous aider à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
+        }
+
+        JList list = new JList<>(miss);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        c.add(list, BorderLayout.CENTER);
+
         System.out.println("mes missions demandées/en cours");
+
+        //Set frame and pane to visible
+        f.setVisible(true);
+        c.setVisible(true);
     }
 
     public void mission_volunteer(ArrayList<Mission> missions){
-        //TODO : afficher liste des missions
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up window
+        JFrame f = new JFrame("AAAPV");
+        f.setResizable(true);
+        f.setBounds(300, 90, 800, 450);
+
+        Container c = f.getContentPane();
+        c.setLayout(null);
+
+        JLabel title = new JLabel("Vos missions acceptées");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setSize(500, 30);
+        title.setLocation(250, 25);
+        c.add(title);
+
+        DefaultListModel miss = new DefaultListModel<>();
+        for(Mission mission : missions){
+            miss.addElement("Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
+        }
+
+        JList list = new JList<>(miss);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+
+        System.out.println("mes missions demandées/en cours");
+
+        //Set frame and pane to visible
+        f.setVisible(true);
+        c.setVisible(true);
         System.out.println("les missions que j'ai accepté (en attende de validation)");
     }
 }

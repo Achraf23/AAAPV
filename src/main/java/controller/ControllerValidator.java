@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ControllerValidator extends ControllerUser{
     private Validator user = null;
@@ -36,7 +37,15 @@ public class ControllerValidator extends ControllerUser{
     public void homepage(User user) {
         this.user = new Validator(user.name, user.firstname, user.mail, user.getPassword());
         System.out.println("connect validator");
-        ControllerValidator.super.getVue().homepage_validator(user.name);
+
+        ArrayList<Mission> allMissions = Database.getAllMissions();
+        ArrayList<Mission> myMissions = new ArrayList<>();
+        for (Mission m : allMissions){
+            if (m.getVolunteer()!=null){
+                myMissions.add(m);
+            }
+        }
+        ControllerValidator.super.getVue().homepage_validator(user.firstname, myMissions);
     }
 }
 

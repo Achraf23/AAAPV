@@ -53,7 +53,19 @@ public class ControllerVulnerable extends ControllerUser{
                         myMissions.add(m);
                     }
                 }
+                System.out.println(myMissions);
                 getVue().mission_vulnerable(myMissions);
+            }
+        };
+        b.addActionListener(listener);
+    }
+
+    public void addOpenHelpListener(final JButton b) {
+        final ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("accueil demande aide");
+                getVue().askForHelp(ControllerVulnerable.this);
             }
         };
         b.addActionListener(listener);
@@ -71,6 +83,6 @@ public class ControllerVulnerable extends ControllerUser{
     public void homepage(User user) {
         System.out.println("connect vulnerable");
         this.user = new Vulnerable(user.name, user.firstname, user.mail, user.getPassword());
-        ControllerVulnerable.super.getVue().homepage_vulnerable(user.name, ControllerVulnerable.this);
+        ControllerVulnerable.super.getVue().homepage_vulnerable(user.firstname, ControllerVulnerable.this);
     }
 }
