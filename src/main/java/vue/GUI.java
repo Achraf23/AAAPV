@@ -8,7 +8,6 @@ import model.Mission;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI {
@@ -324,7 +323,7 @@ public class GUI {
         //Affichage des missions demandées par les vulnérables
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
-            miss.addElement(mission);
+            miss.addElement("Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
         }
 
         JList list = new JList<>(miss);
@@ -386,7 +385,7 @@ public class GUI {
         //Affichage des missions demandées par les vulnérables
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
-            miss.addElement(mission);
+            miss.addElement("Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
         }
 
         JList list = new JList<>(miss);
@@ -432,22 +431,23 @@ public class GUI {
         f.setBounds(300, 90, 800, 450);
 
         Container c = f.getContentPane();
-        c.setLayout(null);
+        c.setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("Vos missions en cours");
+        JLabel title = new JLabel("Vos demandes en cours");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setSize(350, 30);
-        title.setLocation(250, 25);
-        c.add(title);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        c.add(title, BorderLayout.PAGE_START);
 
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
-            miss.addElement(mission);
+            miss.addElement("Pour vous aider à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
         }
 
         JList list = new JList<>(miss);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        c.add(list, BorderLayout.CENTER);
 
         System.out.println("mes missions demandées/en cours");
 
@@ -479,7 +479,7 @@ public class GUI {
 
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
-            miss.addElement(mission);
+            miss.addElement("Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
         }
 
         JList list = new JList<>(miss);

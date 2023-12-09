@@ -75,15 +75,13 @@ public class ControllerVolunteer extends ControllerUser{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Mission> allMissions = Database.getAllMissions();
-                System.out.println(allMissions);
                 ArrayList<Mission> myMissions = new ArrayList<>();
                 for (Mission m : allMissions){
-                    if (m.getVolunteer()!=null){
+                    if (m.getVolunteer()==null){
                         myMissions.add(m);
                     }
                 }
                 getVue().mission_volunteer(myMissions);
-                System.out.println(myMissions);
             }
         };
         b.addActionListener(listener);
@@ -95,12 +93,13 @@ public class ControllerVolunteer extends ControllerUser{
         System.out.println("connect volunteer");
 
         ArrayList<Mission> allMissions = Database.getAllMissions();
-        ArrayList<Mission> myMissions = new ArrayList<>();
+        System.out.println(allMissions);
+        ArrayList<Mission> emptyMissions = new ArrayList<>();
         for (Mission m : allMissions){
-            if (m.getVolunteer()!=null){
-                myMissions.add(m);
+            if (m.getVolunteer()==null){
+                emptyMissions.add(m);
             }
         }
-        ControllerVolunteer.super.getVue().homepage_volunteer(user.firstname, myMissions,ControllerVolunteer.this);
+        ControllerVolunteer.super.getVue().homepage_volunteer(user.firstname, emptyMissions,ControllerVolunteer.this);
     }
 }

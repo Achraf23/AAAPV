@@ -53,6 +53,7 @@ public class ControllerVulnerable extends ControllerUser{
                         myMissions.add(m);
                     }
                 }
+                System.out.println(myMissions);
                 getVue().mission_vulnerable(myMissions);
             }
         };
