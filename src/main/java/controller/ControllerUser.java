@@ -9,7 +9,6 @@ import model.*;
 import javax.swing.*;
 
 public abstract class ControllerUser {
-    Database db;
     GUI vue;
     public ControllerUser(GUI vue){
         this.vue = vue;

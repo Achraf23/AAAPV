@@ -7,9 +7,9 @@ public class Volunteer extends User{
         this.type=EnumUser.Volunteer;
     }
 
-    public void selectMission(Mission m){
-        //TODO : ajouter dans MissionSelected + retirer de model.Mission en attendant validation => si validation : deplacer mission dans table MissionValidated sinon on la remet dans mission
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && this.type.equals(((Volunteer) obj).type);
     }
-
 
 }

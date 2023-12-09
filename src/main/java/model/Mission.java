@@ -38,10 +38,6 @@ public class Mission {
         return description;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getLocation() {
         return location;
     }

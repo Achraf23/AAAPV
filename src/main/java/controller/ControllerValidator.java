@@ -32,9 +32,6 @@ public class ControllerValidator extends ControllerUser{
         Database.insertLineIntoUser(u.name,u.firstname,u.mail,u.getPassword(), EnumUser.Validator);
     }
 
-    public Validator getUser(){
-        return this.user;
-    }
     @Override
     public void homepage(User user) {
         this.user = new Validator(user.name, user.firstname, user.mail, user.getPassword());

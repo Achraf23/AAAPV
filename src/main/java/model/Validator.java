@@ -7,12 +7,9 @@ public class Validator extends User{
         this.type=EnumUser.Validator;
     }
 
-    public void validate(Mission m, Volunteer v) {
-        //TODO : deplace mission de MissionSelected dans MissionValidated
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && this.type.equals(((Validator) obj).type);
     }
 
-    public String refuse(Mission m, Volunteer v){
-        //TODO : deplace mission de MissionSelected dans MissionValidated et retire nom du volunteer (mettre à nul)
-        return "raison du refus";
-    }
 }

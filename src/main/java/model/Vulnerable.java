@@ -7,9 +7,9 @@ public class Vulnerable extends User{
         this.type=EnumUser.Vulnerable;
     }
 
-    public void addMission(String location, String date, String description){
-        Mission m = new Mission(this, location, date, description);
-        //TODO (ajouter dans la bdd la mission)
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && this.type.equals(((Vulnerable) obj).type);
     }
 
 }
