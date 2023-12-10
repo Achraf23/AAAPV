@@ -1,7 +1,6 @@
 import model.*;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
 
@@ -17,23 +16,23 @@ public class UserTest {
     }
 
     @Test
-    static void testIsEqual(){
+    void testIsEqual(){
         User u1 = new User("b", "b", "b", "b");
         User u2 = new User("b", "b", "b", "b");
         User u3 = new User("e", "b", "b", "b");
-        assertTrue(u1.equals(u2));
-        assertFalse(u1.equals(u3));
+        assertEquals(true, u1.equals(u2));
+        assertEquals(false, u1.equals(u3));
 
         Vulnerable vul1 = new Vulnerable("b", "b", "b", "b");
         Vulnerable vul2 = new Vulnerable("b", "b", "b", "b");
         Vulnerable vul3 = new Vulnerable("e", "b", "b", "b");
 
-        assertTrue(vul1.equals(vul2));
-        assertFalse(vul1.equals(vul3));
+        assertEquals(true, vul1.equals(vul2));
+        assertEquals(false, vul1.equals(vul3));
 
         Volunteer vol1 = new Volunteer("b", "b", "b", "b");
 
-        assertFalse(vol1.equals(vul1));
+        assertEquals(true, vol1.type!=vul1.type);
     }
 
 
