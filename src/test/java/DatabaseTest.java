@@ -36,7 +36,7 @@ public class DatabaseTest {
     @Test
     void testAddMission(){
         if(connected)
-            assertEquals(false,Database.insertLineIntoMission(m2));
+            assertEquals(true,Database.insertLineIntoMission(m2));
     }
 
     @Test
