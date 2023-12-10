@@ -57,7 +57,7 @@ public class ControllerVolunteer extends ControllerUser{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Mission> allMissions = Database.getAllMissions();
-                System.out.println(allMissions);
+                System.out.println("all missions : "+allMissions);
                 ArrayList<Mission> myMissions = new ArrayList<>();
                 for (Mission m : allMissions){
                     System.out.println("mission's volunteer : "+m.getVolunteer()+" and user : "+getUser());

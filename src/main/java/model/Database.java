@@ -74,8 +74,14 @@ public class Database {
         initQuery();
 
         try {
-            statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+
-                    m.getVulnerable().getMail()+"','"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"')");
+            if(m.getVolunteer() == null){
+                statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+
+                        m.getVulnerable().getMail()+"', '"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"', '"+m.getVolunteer()+"')");
+            }
+            else{
+                statement.executeUpdate("INSERT INTO Mission " + "VALUES ('"+
+                        m.getVulnerable().getMail()+"', '"+m.getLocation()+"', '"+m.getDate()+"', '"+m.getDescription()+"', '"+m.getVolunteer().getMail()+"')");
+            }
             return true;
         }catch (SQLException s){
             System.out.println("Insert Mission error");
@@ -101,6 +107,19 @@ public class Database {
         return null;
     }
 
+    public static Volunteer getVolunteerFromMail(String mail) throws SQLException{
+        initQuery();
+
+        String query = String.format("SELECT * FROM User WHERE mailUser='%s'",mail);
+        ResultSet rs=statement.executeQuery(query);
+        if (rs.next()) {
+            Volunteer v = new Volunteer(rs.getString("nom"),rs.getString("firstname"),rs.getString("mailUser"),rs.getString("keyword"));
+            return v; //retourne le bénévole associé au mail
+        }
+
+        return null;
+    }
+
     public static ArrayList<Mission> getAllMissions(){
         ArrayList<Mission> missions=new ArrayList<Mission>();
 
@@ -112,7 +131,11 @@ public class Database {
             ResultSet rs=statement.executeQuery(query);
             while (rs.next()) {
                 Vulnerable v =new Vulnerable(rs.getString("nom"),rs.getString("firstname"),rs.getString("mailUser"),rs.getString("keyword"));
-                missions.add(new Mission(v,rs.getString("location"),rs.getString("dateMission"),rs.getString("description")));
+                Mission m = new Mission(v,rs.getString("location"),rs.getString("dateMission"),rs.getString("description"));
+                if(rs.getString("mailVolunteer") != null){
+                    m.setVolunteer(getVolunteerFromMail(rs.getString("mailVolunteer")));
+                }
+                missions.add(m);
             }
         }catch (SQLException s){
             System.out.println("getUser Error");

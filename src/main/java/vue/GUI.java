@@ -256,7 +256,7 @@ public class GUI {
         }
 
         //Set up window
-        JFrame f = new JFrame("Page d'accueil");
+        JFrame f = new JFrame("Page d'accueil demandeur.euse");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setPreferredSize(new Dimension(600, 400));
 
@@ -308,7 +308,7 @@ public class GUI {
         }
 
         //Set up window
-        JFrame f = new JFrame("Page d'accueil");
+        JFrame f = new JFrame("Page d'accueil bénévole");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setPreferredSize(new Dimension(800, 400));
 
@@ -325,6 +325,7 @@ public class GUI {
         p1.setLayout(new FlowLayout());
 
         //Affichage des missions demandées par les vulnérables
+
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
             miss.addElement("["+mission.getId()+"]"+" Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
@@ -334,6 +335,8 @@ public class GUI {
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
         final int[] selectedMissionIndex = {0};
+        //ListSelectionListener qui permet de garder en mémoire quelle mission est sélectionnée avec le curseur
+
         list.addListSelectionListener(new ListSelectionListener() {
 
         String selectedString = "";
@@ -359,11 +362,11 @@ public class GUI {
 
         JButton demande = new JButton("Accepter Mission"); //set label to button
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
-        p1.add(demande); //TODO : ajouter la demande sélectionnée aux missions
+        p1.add(demande);
 
         controllerVolunteer.addMissionSelectionListener(demande, selectedMissionIndex[0]);
 
-        JButton historique = new JButton("Accéder à vos mission en cours"); //set label to button
+        JButton historique = new JButton("Accéder à vos missions en cours"); //set label to button
         historique.setFont(new Font("Arial", Font.PLAIN, 20));
         p1.add(historique);
         controllerVolunteer.addPrintMissionListener(historique);
@@ -384,7 +387,7 @@ public class GUI {
         historique.setVisible(true);
     }
 
-    public void homepage_validator(String first_name, ArrayList<Mission> missions){
+    public void homepage_validator(String first_name, final ArrayList<Mission> missions){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -392,7 +395,7 @@ public class GUI {
         }
 
         //Set up window
-        JFrame f = new JFrame("Page d'accueil");
+        JFrame f = new JFrame("Page d'accueil valideur.euse");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setPreferredSize(new Dimension(600, 400));
 
@@ -408,18 +411,42 @@ public class GUI {
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout());
 
-        //Affichage des missions demandées par les vulnérables
+        //Affichage des missions où quelqu'un s'est porté volontaire
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
-            miss.addElement("["+mission.getId()+"]"+" Pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
+            miss.addElement("["+mission.getId()+"] "+ mission.getVolunteer().getFirstname()+" "+ mission.getVolunteer().getName()+" se propose pour aider "+ mission.getVulnerable().getFirstname() + " " + mission.getVulnerable().getName() + " à " + mission.getDescription() + ", le " + mission.getDate() + " à " + mission.getLocation());
         }
 
         JList list = new JList<>(miss);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
+        final int[] selectedMissionIndex = {0};
+        //ListSelectionListener qui permet de garder en mémoire quelle mission est sélectionnée avec le curseur
+        list.addListSelectionListener(new ListSelectionListener() {
+
+            String selectedString = "";
+            int missionId = 0;
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    JList theList = (JList)e.getSource();
+                    selectedString = (String) theList.getSelectedValue();
+                    missionId = Integer.valueOf(selectedString.substring(selectedString.indexOf('[') + 1, selectedString.indexOf(']')));
+
+                    ArrayList<Mission> allMissions = Database.getAllMissions();
+                    for(Mission mission : allMissions){
+                        if(missionId == mission.getId()){
+                            selectedMissionIndex[0] = missions.indexOf(mission);
+                        }
+                    }
+                }
+            }
+        });
+
         c.add(list);
 
+        //TODO : Handle l'acceptation ou le rejet d'une demande
         JButton demande = new JButton("Accepter demande"); //set label to button
         demande.setFont(new Font("Arial", Font.PLAIN, 20));
         p1.add(demande);
@@ -444,6 +471,7 @@ public class GUI {
         historique.setVisible(true);
     }
 
+    //Permet l'affichage de la page de la gestion des missions
     public void mission_vulnerable(ArrayList<Mission> missions){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -452,7 +480,7 @@ public class GUI {
         }
 
         //Set up window
-        JFrame f = new JFrame("AAAPV");
+        JFrame f = new JFrame("Demandes en cours");
         f.setResizable(true);
         f.setBounds(300, 90, 800, 450);
 
@@ -482,6 +510,7 @@ public class GUI {
         c.setVisible(true);
     }
 
+    //Permet l'affichage de la page de gestion des missions demandées
     public void mission_volunteer(ArrayList<Mission> missions){
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -490,19 +519,18 @@ public class GUI {
         }
 
         //Set up window
-        JFrame f = new JFrame("AAAPV");
+        JFrame f = new JFrame("Missions en cours");
         f.setResizable(true);
         f.setBounds(300, 90, 800, 450);
 
         Container c = f.getContentPane();
         c.setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("Vos missions acceptées");
+        JLabel title = new JLabel("Vos missions acceptées/en cours");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setSize(500, 30);
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setVerticalAlignment(SwingConstants.NORTH);
-        c.add(title);
+        c.add(title, BorderLayout.PAGE_START);
 
         DefaultListModel miss = new DefaultListModel<>();
         for(Mission mission : missions){
@@ -512,8 +540,7 @@ public class GUI {
         JList list = new JList<>(miss);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-
-        c.add(list);
+        c.add(list, BorderLayout.CENTER);
 
         System.out.println("mes missions demandées/en cours");
 

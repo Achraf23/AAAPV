@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DatabaseTest {
     final Vulnerable v1= new Vulnerable("a","a","a","a");
@@ -28,15 +29,14 @@ public class DatabaseTest {
     @Test
     void testAddUser(){
         if(connected)
-            assertEquals(true,
-                    Database.insertLineIntoUser(v1.name,v1.firstname,v1.mail,v1.getPassword(),v1.type));
+            assertTrue(Database.insertLineIntoUser(v1.name, v1.firstname, v1.mail, v1.getPassword(), v1.type));
 
     }
 
     @Test
     void testAddMission(){
         if(connected)
-            assertEquals(true,Database.insertLineIntoMission(m2));
+            assertTrue(Database.insertLineIntoMission(m2));
     }
 
     @Test
