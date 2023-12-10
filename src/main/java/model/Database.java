@@ -19,7 +19,7 @@ public class Database {
     }
 
 
-    public static void connectToDatabase(){
+    public static boolean connectToDatabase(){
         if(con==null){
             try {
                 con = DriverManager.getConnection(url, user,
@@ -34,9 +34,12 @@ public class Database {
                 System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
+                return false;
             }
 
         }
+
+        return true;
 
     }
 
