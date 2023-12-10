@@ -17,8 +17,11 @@ public class DatabaseTest {
     @BeforeAll
     static void initTest(){
         connected=Database.connectToDatabase();
-        Database.deleteMissions();
-        Database.deleteUsers();
+        if(connected){
+            Database.deleteMissions();
+            Database.deleteUsers();
+        }
+
     }
 
 
@@ -47,7 +50,7 @@ public class DatabaseTest {
     }
 
     @AfterAll
-    void clearTables(){
+    static void clearTables(){
         if(connected){
             Database.deleteUsers();
             Database.deleteMissions();
